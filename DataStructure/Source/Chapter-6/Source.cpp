@@ -13,17 +13,17 @@ BiTreeNode* Search(const BiTree &tr, const int &val)
 	if (tr == nullptr)
 		return nullptr;
 	Stack<BiTree> st;
-	st.Push(tr);
-	while (!st.IsEmpty())
+	st.push(tr);
+	while (!st.empty())
 	{
-		BiTree node = st.Top();
+		BiTree node = st.top();
 		if (node->data == val)
 			return node;
-		st.Pop();
+		st.pop();
 		if (node->right)
-			st.Push(node->right);
+			st.push(node->right);
 		if (node->left)
-			st.Push(node->left);
+			st.push(node->left);
 	}
 	return nullptr;
 }
@@ -34,16 +34,16 @@ bool IsComplete(const BiTree& tr)
 		return true;
 	bool flag = false;
 	Queue<BiTree> q;
-	q.Push(tr);
-	while (!q.IsEmpty())
+	q.push(tr);
+	while (!q.empty())
 	{
-		BiTree node = q.Front();
-		q.Pop();
+		BiTree node = q.front();
+		q.pop();
 		if (node->left)
 		{
 			if (flag)
 				return false;
-			q.Push(node->left);
+			q.push(node->left);
 		}
 		else
 			flag = true;
@@ -51,7 +51,7 @@ bool IsComplete(const BiTree& tr)
 		{
 			if (flag)
 				return false;
-			q.Push(node->right);
+			q.push(node->right);
 		}
 		else
 			flag = true;

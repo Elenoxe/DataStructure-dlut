@@ -1,24 +1,26 @@
 #pragma once
 #include "Base.h"
+
 namespace eleno
 {
 	template <class T>
 	class Stack
 	{
-	private:
+		private:
 		size_t _size;
 		LinkNode<T>* _top;
-	public:
+		public:
 		Stack();
 		~Stack();
-		bool IsEmpty() const;
-		T& Top();
-		const T& Top() const;
-		void Push(const T& val);
-		void Pop();
-		size_t Size() const;
-		void Clear();
+		bool empty() const;
+		T& top();
+		const T& top() const;
+		void push(const T& val);
+		void pop();
+		size_t size() const;
+		void clear();
 	};
+
 	template <class T>
 	Stack<T>::Stack()
 	{
@@ -29,62 +31,62 @@ namespace eleno
 	template <class T>
 	Stack<T>::~Stack()
 	{
-		Clear();
+		clear();
 	}
 
 	template <class T>
-	bool Stack<T>::IsEmpty() const
+	bool Stack<T>::empty() const
 	{
 		return _size == 0;
 	}
 
 	template <class T>
-	T& Stack<T>::Top()
+	T& Stack<T>::top()
 	{
-		if (IsEmpty())
+		if (empty())
 			throw "Cannot access the top of an empty stack.";
 		return _top->data;
 	}
 
 	template <class T>
-	const T& Stack<T>::Top() const
+	const T& Stack<T>::top() const
 	{
-		if (IsEmpty())
+		if (empty())
 			throw "Cannot access the top of an empty stack.";
 		return _top->data;
 	}
 
 	template <class T>
-	void Stack<T>::Push(const T& val)
+	void Stack<T>::push(const T& val)
 	{
 		++_size;
-		LinkNode<T> *node = new LinkNode<T>;
+		LinkNode<T>* node = new LinkNode<T>;
 		node->data = val;
 		node->next = _top;
 		_top = node;
 	}
 
 	template <class T>
-	void Stack<T>::Pop()
+	void Stack<T>::pop()
 	{
-		if (IsEmpty())
+		if (empty())
 			return;
 		--_size;
-		LinkNode<T> *node = _top;
+		LinkNode<T>* node = _top;
 		_top = _top->next;
 		delete node;
 	}
 
 	template <class T>
-	size_t Stack<T>::Size() const
+	size_t Stack<T>::size() const
 	{
 		return _size;
 	}
 
 	template <class T>
-	void Stack<T>::Clear()
+	void Stack<T>::clear()
 	{
-		while (!IsEmpty())
-			Pop();
+		while (!empty())
+			pop();
 	}
 }
