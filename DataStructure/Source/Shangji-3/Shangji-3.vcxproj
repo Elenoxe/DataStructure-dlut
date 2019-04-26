@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,33 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{7AB9ADA8-9239-47BF-821A-861E6E536359}</ProjectGuid>
-    <RootNamespace>Shared</RootNamespace>
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{E130FA27-FEB3-41A1-84F9-C4B81BC39641}</ProjectGuid>
+    <RootNamespace>Shangji3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -69,25 +69,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)Temp\Link\$(ProjectName)\$(ConfigurationName)</OutDir>
-    <TargetExt>.lib</TargetExt>
-    <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\$(ConfigurationName)</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)Temp\Link\$(ProjectName)\$(ConfigurationName)</OutDir>
-    <TargetExt>.lib</TargetExt>
-    <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\$(ConfigurationName)</IntDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)Temp\Link\$(ProjectName)\$(ConfigurationName)</OutDir>
-    <TargetExt>.lib</TargetExt>
-    <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\$(ConfigurationName)</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)Temp\Link\$(ProjectName)\$(ConfigurationName)</OutDir>
-    <TargetExt>.lib</TargetExt>
-    <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\$(ConfigurationName)</IntDir>
+    <OutDir>$(SolutionDir)Temp\Link\$(ProjectName)\$(ConfigurationName)\</OutDir>
+    <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\$(ConfigurationName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -95,10 +79,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
     <PostBuildEvent>
-      <Command>IF NOT EXIST "$(SolutionDir)Lib\" md "$(SolutionDir)Lib\";
-IF EXIST "$(TargetPath)" copy "$(TargetPath)" "$(SolutionDir)Lib\";</Command>
+      <Command>IF NOT EXIST "$(SolutionDir)Bin\$(ConfigurationName)\" md "$(SolutionDir)Bin\$(ConfigurationName)\";</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -108,10 +95,9 @@ IF EXIST "$(TargetPath)" copy "$(TargetPath)" "$(SolutionDir)Lib\";</Command>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-    <PostBuildEvent>
-      <Command>IF NOT EXIST "$(SolutionDir)Lib\" md "$(SolutionDir)Lib\";
-IF EXIST "$(TargetPath)" copy "$(TargetPath)" "$(SolutionDir)Lib\";</Command>
-    </PostBuildEvent>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -123,13 +109,10 @@ IF EXIST "$(TargetPath)" copy "$(TargetPath)" "$(SolutionDir)Lib\";</Command>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <PostBuildEvent>
-      <Command>IF NOT EXIST "$(SolutionDir)Lib\" md "$(SolutionDir)Lib\";
-IF EXIST "$(TargetPath)" copy "$(TargetPath)" "$(SolutionDir)Lib\";</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -141,22 +124,16 @@ IF EXIST "$(TargetPath)" copy "$(TargetPath)" "$(SolutionDir)Lib\";</Command>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <PostBuildEvent>
-      <Command>IF NOT EXIST "$(SolutionDir)Lib\" md "$(SolutionDir)Lib\";
-IF EXIST "$(TargetPath)" copy "$(TargetPath)" "$(SolutionDir)Lib\";</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Include\Base.h" />
-    <ClInclude Include="..\..\Include\ForwardList.h" />
-    <ClInclude Include="..\..\Include\Queue.h" />
-    <ClInclude Include="..\..\Include\SeqQueue.h" />
-    <ClInclude Include="..\..\Include\SortedForwardList.h" />
-    <ClInclude Include="..\..\Include\Stack.h" />
-    <ClInclude Include="..\..\Include\Vector.h" />
+    <ClInclude Include="Forest.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

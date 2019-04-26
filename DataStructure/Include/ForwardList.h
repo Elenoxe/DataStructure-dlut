@@ -7,7 +7,7 @@ namespace eleno
 	template <class T>
 	class ForwardList
 	{
-		public:
+	public:
 		using value_type = T;
 		using reference = value_type&;
 		using const_reference = const value_type&;
@@ -15,22 +15,22 @@ namespace eleno
 		using const_pointer = const value_type*;
 		using difference_type = ptrdiff_t;
 		using size_type = size_t;
-		private:
+	private:
 		template <bool _Const>
 		class _BaseIterator
 			: public std::iterator<std::conditional_t<_Const, std::input_iterator_tag, std::forward_iterator_tag>, T>
 		{
 			friend class ForwardList;
-			public:
+		public:
 			using iterator_category = std::conditional_t<_Const, std::input_iterator_tag, std::forward_iterator_tag>;
 			using value_type = typename ForwardList::value_type;
 			using difference_type = ptrdiff_t;
 			using pointer = std::conditional_t<_Const, const value_type*, value_type*>;
 			using reference = std::conditional_t<_Const, const value_type&, value_type&>;
-			private:
+		private:
 			LinkNode<value_type>* _pNode;
 			explicit _BaseIterator(LinkNode<T>* p = nullptr) { _pNode = p; }
-			public:
+		public:
 			_BaseIterator(const _BaseIterator<false>& other) { _pNode = other._pNode; }
 			bool operator==(const _BaseIterator<false>& iter) const { return _pNode == iter._pNode; }
 			bool operator==(const _BaseIterator<true>& iter) const { return _pNode == iter._pNode; }
@@ -47,7 +47,7 @@ namespace eleno
 			{
 				_BaseIterator temp = *this;
 				_pNode = _pNode->next;
-				return *this;
+				return temp;
 			}
 
 			_BaseIterator operator+(const size_type& n)
@@ -63,13 +63,13 @@ namespace eleno
 
 		size_type _size;
 		LinkNode<value_type>* _head;
-		public:
+	public:
 		using iterator = _BaseIterator<false>;
 		using const_iterator = _BaseIterator<true>;
 		ForwardList();
 		ForwardList(const ForwardList& other);
 		~ForwardList();
-		ForwardList& operator= (const ForwardList& other);
+		ForwardList& operator=(const ForwardList& other);
 		// Iterators
 		iterator before_begin() const { return iterator(_head); }
 		iterator begin() const { return iterator(_head->next); }

@@ -43,16 +43,12 @@ namespace eleno
 	template <class T>
 	T& Stack<T>::top()
 	{
-		if (empty())
-			throw "Cannot access the top of an empty stack.";
 		return _top->data;
 	}
 
 	template <class T>
 	const T& Stack<T>::top() const
 	{
-		if (empty())
-			throw "Cannot access the top of an empty stack.";
 		return _top->data;
 	}
 

@@ -6,11 +6,11 @@ namespace eleno
 	template <class T>
 	class Queue
 	{
-		private:
+	private:
 		size_t _size;
 		LinkNode<T>* _front;
 		LinkNode<T>* _rear;
-		public:
+	public:
 		Queue();
 		~Queue();
 		bool empty() const;
