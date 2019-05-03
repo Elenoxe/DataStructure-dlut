@@ -57,7 +57,7 @@ namespace eleno
 	template <class T>
 	void Queue<T>::push(const T& val)
 	{
-		++_size;
+		
 		LinkNode<T>* node = new LinkNode<T>;
 		node->data = val;
 		node->next = nullptr;
@@ -66,6 +66,7 @@ namespace eleno
 		else
 			_rear->next = node;
 		_rear = node;
+		++_size;
 	}
 
 	template <class T>

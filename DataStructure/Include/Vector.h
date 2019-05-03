@@ -129,7 +129,7 @@ namespace eleno
 	template <class T>
 	Vector<T>::~Vector()
 	{
-		delete _elems;
+		delete[] _elems;
 	}
 
 	template <class T>
@@ -137,7 +137,7 @@ namespace eleno
 	{
 		_size = other._size;
 		_capacity = other._capacity;
-		delete _elems;
+		delete[] _elems;
 		_elems = new value_type[_capacity];
 		for (size_type i = 0; i < other._size; ++i)
 			_elems[i] = other[i];
@@ -203,14 +203,11 @@ namespace eleno
 	{
 		if (_size == _capacity)
 		{
-			pointer temp = static_cast<pointer>(realloc(_elems, _capacity * 2 * sizeof(value_type)));
-			if (temp)
-			{
-				_elems = temp;
-				_capacity *= 2;
-			}
-			else
-				throw std::bad_alloc();
+			pointer temp = _elems;
+			_elems = new value_type[_capacity * 2];
+			memcpy(_elems, temp, _capacity * sizeof(value_type));
+			delete[] temp;
+			_capacity *= 2;
 		}
 		_elems[_size] = val;
 		++_size;
@@ -228,14 +225,10 @@ namespace eleno
 	{
 		if (_size == _capacity)
 		{
-			pointer temp = static_cast<pointer>(realloc(_elems, _capacity * 2 * sizeof(value_type)));
-			if (temp)
-			{
-				_elems = temp;
-				_capacity *= 2;
-			}
-			else
-				throw std::bad_alloc();
+			pointer temp = _elems;
+			_elems = new value_type[_capacity * 2];
+			memcpy(_elems, temp, _capacity * sizeof(value_type));
+			delete[] temp;
 		}
 		for (pointer p = &_elems[_size - 1]; p >= iter._p; --p)
 		{
@@ -260,7 +253,7 @@ namespace eleno
 	template <class T>
 	void Vector<T>::clear()
 	{
-		delete _elems;
+		delete[] _elems;
 		_elems = new T[INIT_CAPACITY];
 		_size = 0;
 		_capacity = INIT_CAPACITY;

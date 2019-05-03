@@ -1,6 +1,7 @@
 #pragma once
 #include "Stack.h"
 #include "Queue.h"
+#include <functional>
 using namespace eleno;
 
 template <class T>
@@ -12,7 +13,7 @@ struct Node
 };
 
 template <class T>
-void InorderTraverse(Node<T>* node, void* visit(Node<T>*))
+void InorderTraverse(Node<T>* node, std::function<void(Node<T>*)> visit)
 {
 	if (!node)
 		return;
@@ -35,7 +36,7 @@ void InorderTraverse(Node<T>* node, void* visit(Node<T>*))
 }
 
 template <class T>
-int GetLeafNum(Node<T>* root)
+int GetLeafCount(Node<T>* root)
 {
 	if (!root)
 		return 0;
@@ -45,7 +46,7 @@ int GetLeafNum(Node<T>* root)
 		if (!node->first_child)
 			++num;
 	};
-	InorderTraverse(root, f);
+	InorderTraverse<T>(root, f);
 	return num;
 }
 
@@ -70,8 +71,8 @@ bool IsComplete(Node<T>* root)
 		{
 			if (done)
 				return false;
-			q.push(curr->left);
-			q.push(curr->right);
+			q.push(curr->first_child);
+			q.push(curr->next_sibling);
 		}
 	}
 	return true;
